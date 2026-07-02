@@ -4,8 +4,24 @@ A Next.js implementation of a Swiss tournament pairings application for Trading 
 
 ## Target Audience & Design Philosophy
 
-- **Players (Mobile-First):** The player experience (viewing pairings, checking standings, and submitting match results) is designed mobile-first for quick, on-the-go access during events.
-- **Tournament Organisers (Tablet-First):** The organiser dashboard (player management, round controls, manual pairings adjustments, and pairings execution) is optimized tablet-first to provide a clean, high-density view for running the event.
+- **Players (Mobile-First):** The player experience is optimized for mobile screens. Players can quickly view current pairings, check their table assignments, view live standings, and submit match results (e.g., wins, losses, draws) directly from their phones.
+- **Tournament Organisers (Tablet-First):** The organiser dashboard is optimized for tablet/desktop screens, providing a high-density, multi-column interface. Organisers can register/drop players, control rounds, execute pairings, and perform manual overrides.
+
+## Technical Specifications
+
+### Edmonds-Blossom Matchmaking
+To avoid the deadlocks ("jams") common in greedy, top-down matchmaking heuristics:
+- The player field is modeled as a graph where players are vertices and valid potential matches are edges.
+- Matchups are assigned dynamic weights (e.g., high positive weights for players with identical scores, negative weights/forbidden edges for previous opponents).
+- The Edmonds-Blossom algorithm is used to solve the Maximum Weight Perfect Matching (MWPM) problem, ensuring a global optimum.
+
+### Swiss Standings & Tiebreakers
+Standings are calculated using standard TCG tiebreaker hierarchies:
+1. **Match Points:** 3 points for a win, 1 point for a draw, 0 for a loss.
+2. **Opponent's Match-Win Percentage (OMW%):** Average match-win percentage of all faced opponents (minimum floor of 33.33% to prevent penalizing players who faced low-scoring opponents).
+3. **Opponent's Opponent's Match-Win Percentage (OOMW%):** Average OMW% of the player's opponents.
+4. **Opponent's Game-Win Percentage (OGW%):** Average game-win percentage of opponents (for best-of-three matches).
+5. **Player's Game-Win Percentage (PGW%):** The player's own game-win percentage.
 
 ## Important Disclaimers & Usage Restrictions
 
