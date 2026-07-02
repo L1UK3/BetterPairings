@@ -13,21 +13,19 @@ A Next.js implementation of a Swiss tournament pairings application for Trading 
 To avoid the deadlocks ("jams") common in greedy, top-down matchmaking heuristics:
 - The player field is modeled as a graph where players are vertices and valid potential matches are edges.
 - Matchups are assigned dynamic weights (e.g., high positive weights for players with identical scores, negative weights/forbidden edges for previous opponents).
-- The Edmonds-Blossom algorithm is used to solve the Maximum Weight Perfect Matching (MWPM) problem, ensuring a global optimum.
+- The Edmonds-Blossom algorithm is used to solve the Maximum Weight Perfect Matching (MWPM) problem.
 
 ### Swiss Standings & Tiebreakers
 Standings are calculated using standard TCG tiebreaker hierarchies:
 1. **Match Points:** 3 points for a win, 1 point for a draw, 0 for a loss.
-2. **Opponent's Match-Win Percentage (OMW%):** Average match-win percentage of all faced opponents (minimum floor of 33.33% to prevent penalizing players who faced low-scoring opponents).
+2. **Opponent's Match-Win Percentage (OMW%):** Average match-win percentage of all faced opponents.
 3. **Opponent's Opponent's Match-Win Percentage (OOMW%):** Average OMW% of the player's opponents.
-4. **Opponent's Game-Win Percentage (OGW%):** Average game-win percentage of opponents (for best-of-three matches).
-5. **Player's Game-Win Percentage (PGW%):** The player's own game-win percentage.
 
 ## Important Disclaimers & Usage Restrictions
 
 > [!WARNING]
 > **Copyrighted Property Restrictions**
-> References to copyrighted properties, trademarks, logos, or official card game assets (e.g., Magic: The Gathering, Pokémon, Yu-Gi-Oh!, Disney Lorcana, etc.) cannot be used or incorporated into this software.
+> References to copyrighted properties, trademarks, logos, or official card game assets cannot be used or incorporated into this software.
 
 > [!IMPORTANT]
 > **Tournament Sanctioning**
